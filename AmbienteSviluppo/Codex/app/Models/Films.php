@@ -20,5 +20,12 @@ class Films extends Model
         "categoria",
         "anno",
         "trama",
+        "trailer",
+        "src"
     ];
+
+    public function categoria()
+    {
+        return $this->belongsTo(Categoria::class, 'idCategoria');
+    }
 }

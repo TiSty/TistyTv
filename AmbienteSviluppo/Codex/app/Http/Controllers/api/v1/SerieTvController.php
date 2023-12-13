@@ -7,6 +7,7 @@ use App\Http\Requests\v1\SerieTvStoreRequest;
 use App\Http\Requests\v1\SerieTvUpdateRequest;
 use App\Http\Resources\v1\SerieTvCollection;
 use App\Http\Resources\v1\SerieTvResource;
+use App\Models\Categoria;
 use App\Models\SeriesTv;
 use Database\Seeders\SerieTv;
 use Illuminate\Http\Request;
@@ -68,6 +69,20 @@ class SerieTvController extends Controller
             abort(403);
         }
         return $risorsa;
+    }
+
+
+    public function showCat($idCategoria){
+        if(Gate::allows("vedere")){
+            $categoria = Categoria::find($idCategoria);
+            if(!$categoria){
+                abort(404, 'Categoria non trovata');
+            } else {
+                $serieTv = $categoria->SeriesTv()->get();
+
+                return new SerieTvCollection($serieTv);
+            }
+        }
     }
 
     /**

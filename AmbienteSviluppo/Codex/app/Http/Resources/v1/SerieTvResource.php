@@ -37,6 +37,8 @@ class SerieTvResource extends JsonResource
          "categoria" => $this->categoria,
          "anno" => $this->anno,
          "trama" => $this->trama,
+         "trailer" => $this->trailer,
+         "src" => $this->src
         ];
 
 

@@ -14,6 +14,16 @@ class Categoria extends Model
     protected $primaryKey =  "idCategoria";
 
     protected $fillable=[
-        "nome"
+        "nome",
+        "src"
     ];
+
+
+    public function films(){
+        return $this->hasMany(Films::class, 'idCategoria');
+    }
+    public function seriesTv(){
+        return $this->hasMany(SeriesTv::class, 'idCategoria');
+    }
+
 }

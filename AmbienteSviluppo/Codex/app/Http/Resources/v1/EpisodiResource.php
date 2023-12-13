@@ -38,6 +38,8 @@ class EpisodiResource extends JsonResource
          "durata" => $this->durata,
          "anno" => $this->anno,
          "trama" => $this->trama,
+         "trailer" => $this->trailer,
+         "fotoAnteprima" => $this->fotoAnteprima
         ];
 
 

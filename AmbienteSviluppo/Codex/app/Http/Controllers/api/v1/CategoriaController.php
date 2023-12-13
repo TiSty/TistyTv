@@ -9,6 +9,8 @@ use App\Models\Categoria;
 use Illuminate\Http\Request;
 use App\Http\Resources\v1\CategoriaCollection;
 use App\Http\Resources\v1\CategoriaResource;
+use App\Http\Resources\v1\FilmCollection;
+use App\Models\Films;
 use Database\Seeders\categorie;
 use Illuminate\Support\Facades\Gate;
 
@@ -70,6 +72,18 @@ class CategoriaController extends Controller
             abort(403);
         }
         return $risorsa;
+    }
+    public function showFilm($idCategoria){
+        if(Gate::allows("vedere")){
+            $categoria = Categoria::find($idCategoria);
+            if(!$categoria){
+                abort(404, 'Categoria non trovata');
+            } else {
+                $films = $categoria->films()->get();
+
+                return new FilmCollection($films);
+            }
+        }
     }
 
     /**
