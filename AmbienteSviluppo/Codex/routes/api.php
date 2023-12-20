@@ -73,6 +73,7 @@ Route::middleware(["autenticazione", 'ContattoRuolo:Amministratore,Utente'])->gr
     //Rotta per gli Episodi delle SerieTv
     Route::get(_VERS . '/episodi', [EpisodiController::class ,'index']);
     Route::get(_VERS . '/episodi/{episodio}', [EpisodiController::class ,'show']);
+    Route::get(_VERS . '/serieTv/episodio/{idEpisodio}', [EpisodiController::class ,'showEpisodi']);
 
     //Rotte Gestione profilo
     Route::post(_VERS . '/utenti/{utente}/aggiungiCredito/{importo}', [UtentiController::class ,'aggiungiCredito']);
@@ -92,9 +93,9 @@ Route::middleware(["autenticazione", 'ContattoRuolo:Amministratore'])->group(fun
     Route::delete(_VERS . '/categorie/{categoria}', [CategoriaController::class ,'destroy']);
 
     //rotte per i film
-    Route::post(_VERS . '/Film', [FilmController::class ,'store']);
-    Route::put(_VERS . '/Film/{film}', [FilmController::class ,'update']);
-    Route::delete(_VERS . '/Film/{film}', [FilmController::class ,'destroy']);
+    Route::post(_VERS . '/film', [FilmController::class ,'store']);
+    Route::put(_VERS . '/film/{film}', [FilmController::class ,'update']);
+    Route::delete(_VERS . '/film/{film}', [FilmController::class ,'destroy']);
 
     //rotte per serie tv
     Route::post(_VERS . '/serieTv', [SerieTvController::class ,'store']);

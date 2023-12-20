@@ -23,4 +23,8 @@ class SeriesTv extends Model
         "anno",
         "trama",
     ];
+
+    public function episodi(){
+        return $this->hasMany(Episodio::class, 'idSerieTv');
+    }
 }

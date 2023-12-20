@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Database\Seeders\SerieTv;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -22,4 +23,12 @@ class Episodio extends Model
         'anno',
         'trama',
     ];
+
+
+
+
+    public function serieTv()
+    {
+        return $this->belongsTo(SeriesTv::class,  'idSerieTv');
+    }
 }

@@ -9,6 +9,7 @@ use App\Http\Requests\v1\EpisodiUpdateRequest;
 use App\Http\Resources\v1\EpisodiResource;
 use Illuminate\Http\Request;
 use App\Models\Episodio;
+use App\Models\SeriesTv;
 use Illuminate\Support\Facades\Gate;
 
 class EpisodiController extends Controller
@@ -66,6 +67,23 @@ class EpisodiController extends Controller
         }
         return $risorsa;
     }
+
+
+    public function showEpisodi($idSerieTv) {
+        if (Gate::allows("vedere")) {
+            $serieTv = SeriesTv::find($idSerieTv);
+    
+            if (!$serieTv) {
+                abort(404, 'Serie TV non trovata');
+            } else {
+                // Ottenere gli episodi correlati alla Serie TV
+                $episodi = $serieTv->episodi()->get();
+    
+                return new EpisodiCollection($episodi);
+            }
+        }
+    }
+    
 
     /**
      * Update the specified resource in storage.
