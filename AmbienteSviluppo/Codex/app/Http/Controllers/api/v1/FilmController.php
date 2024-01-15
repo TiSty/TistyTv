@@ -8,6 +8,9 @@ use App\Http\Requests\v1\FilmStoreRequest;
 use App\Http\Requests\v1\FilmUpdateRequest;
 use App\Http\Resources\v1\FilmCollection;
 use App\Http\Resources\v1\FilmResource;
+use App\Http\Resources\v1\FilmSingoloResource;
+use App\Http\Requests\v1\FilmVisualizzatoUpdateRequest;
+use App\Http\Resources\v1\FilmSingolo;
 use App\Models\Categoria;
 use Database\Seeders\Film;
 use Illuminate\Http\Request;
@@ -106,6 +109,23 @@ class FilmController extends Controller
             $film->save(); //prendo il model e lo salvo
             //ritornare la risorsa modificata
             return new FilmResource($film); //ritorna la risorsa modificata
+        } else {
+            abort(403);
+        }
+    }
+    public function modificaSingola(FilmVisualizzatoUpdateRequest $request, Films $film)
+    {
+        if (Gate::allows("modificare")) {
+            //prelevare i dati -> sono nella $request
+
+            //verificare i dati
+            $dati = $request->validated();
+            //inserirli nell'oggetto al database preparare model
+            $film->fill($dati);
+            //salvarlo
+            $film->save();
+            //ritornare la risorsa modificata
+            return new FilmSingolo($film);
         } else {
             abort(403);
         }

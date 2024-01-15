@@ -40,20 +40,6 @@ class SerieTvResource extends JsonResource
          "trailer" => $this->trailer,
          "src" => $this->src
         ];
-
-
-        // QUESTA FUNZIONE è PER LA FUNZIONE SHOW DOVE VISUALIZZO SOLO UN  CAMPO
-        //return [
-        // "idSerieTv"=> 2,
-        // "titolo"=> "Chuck",
-        // "durata"=> 42 ,
-        // "stagioni"=> 5,
-        // "episodi"=> 91, 
-        // "regista"=> "Josh Schwartz",
-        // "categoria"=> "Azione",
-        // "anno"=> 2007 ,
-        // "trama"=> "Chuck Bartowski è un ragazzo di Burbank, in California, dove lavora come esperto di computer nel negozio di elettronica Buy More al NerdHerd, insieme al suo migliore amico Morgan Grimes. La serie racconta le vicende di Chuck, che riceve da un vecchio amico, un agente della CIA, una e-mail criptata che scarica inconsciamente nel suo cervello tutti i segreti del supercomputer neurale Intersect, costruito da CIA e NSA come database centralizzato",
-        //];
     }
 }
         

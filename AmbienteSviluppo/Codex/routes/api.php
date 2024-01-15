@@ -89,16 +89,19 @@ Route::middleware(["autenticazione", 'ContattoRuolo:Amministratore'])->group(fun
 
     //rotte per categorie
     Route::post(_VERS . '/categorie', [CategoriaController::class ,'store']);
+    Route::put(_VERS . '/categorie', [CategoriaController::class ,'update']);
     Route::put(_VERS . '/categorie/{categoria}', [CategoriaController::class ,'update']);
     Route::delete(_VERS . '/categorie/{categoria}', [CategoriaController::class ,'destroy']);
 
     //rotte per i film
     Route::post(_VERS . '/film', [FilmController::class ,'store']);
+    Route::put(_VERS . '/film', [FilmController::class ,'modificaSingola']);
     Route::put(_VERS . '/film/{film}', [FilmController::class ,'update']);
     Route::delete(_VERS . '/film/{film}', [FilmController::class ,'destroy']);
 
     //rotte per serie tv
     Route::post(_VERS . '/serieTv', [SerieTvController::class ,'store']);
+    Route::put(_VERS . '/serieTv', [SerieTvController::class ,'modificaSingola']);
     Route::put(_VERS . '/serieTv/{serieTv}', [SerieTvController::class ,'update']);
     Route::delete(_VERS . '/serieTv/{serieTv}', [SerieTvController::class ,'destroy']);
 

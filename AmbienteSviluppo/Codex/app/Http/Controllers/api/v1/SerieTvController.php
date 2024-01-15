@@ -5,8 +5,10 @@ namespace App\Http\Controllers\api\v1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\v1\SerieTvStoreRequest;
 use App\Http\Requests\v1\SerieTvUpdateRequest;
+use App\Http\Requests\v1\SerieTvVisualizzataUpdateRequest;
 use App\Http\Resources\v1\SerieTvCollection;
 use App\Http\Resources\v1\SerieTvResource;
+use App\Http\Resources\v1\SerieTvSingolaResource;
 use App\Models\Categoria;
 use App\Models\SeriesTv;
 use Database\Seeders\SerieTv;
@@ -109,6 +111,24 @@ class SerieTvController extends Controller
             abort(403);
         }
     }
+    public function modificaSingola(SerieTvVisualizzataUpdateRequest $request, Seriestv $serieTv)
+    {
+        if (Gate::allows("modificare")) {
+            //prelevare i dati -> sono nella $request
+
+            //verificare i dati
+            $dati = $request->validated();
+            //inserirli nell'oggetto al database preparare model
+            $serieTv->fill($dati);
+            //salvarlo
+            $serieTv->save();
+            //ritornare la risorsa modificata
+            return new SerieTvSingolaResource($serieTv);
+        } else {
+            abort(403);
+        }
+    }
+    
 
     /**
      * Remove the specified resource from storage.
