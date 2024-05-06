@@ -22,7 +22,7 @@ class FilmUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'titolo'=> 'string|max:80',
+        'titolo'=> 'string|max:80',
             'durata'=> 'integer',
             'regista'=> 'string|max:80',
             'categoria' => 'string|max:80',

@@ -22,8 +22,8 @@ class CategoriaUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nome' => 'string|max:45',
-            'src' => 'string|max:255'
+            'nome' => 'string|max:45'
+            
         ];
     }
 }

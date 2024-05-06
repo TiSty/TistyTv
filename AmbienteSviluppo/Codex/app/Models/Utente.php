@@ -24,6 +24,9 @@ class Utente extends ClassePerGate
         "cittadinanza",
         "dataNascita",
         "credito",
+        "residenza",
+        "domicilio",
+        "ragioneSociale"
     ];
 
 

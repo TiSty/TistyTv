@@ -27,6 +27,12 @@ class modificaDatiRequest extends FormRequest
             "sesso" => "required|integer"    ,
             "idRuoloUtente"=>"Utente",
             "dataNascita" => "required|date"    ,
+            "cittadinanza" => "required|string",
+            "residenza" => "required|string",
+            "ragioneSociale" => "required|string",
+            "domicilio" => "required|string"
+         
+          
         ];
     }
 }

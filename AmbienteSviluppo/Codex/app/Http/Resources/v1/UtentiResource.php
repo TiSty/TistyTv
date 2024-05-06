@@ -20,26 +20,25 @@ class UtentiResource extends JsonResource
 
 
 
-     //------------- PROTECTED ------------------------------------------------
-    
+    //------------- PROTECTED ------------------------------------------------
 
-     protected function getCampi(){
+
+    protected function getCampi()
+    {
         // QUESTA FUNZIONE è PER LA FUNZIONE INDEX DOVE VISUALIZZO TUTTI I CAMPI
         return [
-         'nome' => $this->nome,
-         'cognome' => $this->cognome ,
-         "sesso" => $this->sesso ,
-        //  "idStato" => $this->idStato ,
-         "cittadinanza" => $this->cittadinanza ,
-         "dataNascita" => $this->dataNascita ,
-        //  "credito" => $this->credito ,
-    
+            'nome' => $this->nome,
+            'cognome' => $this->cognome,
+            "sesso" => $this->sesso,
+            "cittadinanza" => $this->cittadinanza,
+            "dataNascita" => $this->dataNascita,
+
         ];
 
 
         // QUESTA FUNZIONE è PER LA FUNZIONE SHOW DOVE VISUALIZZO SOLO UN  CAMPO
         //return [
-         //"nome"=> "Mattia",
+        //"nome"=> "Mattia",
         // "cognome"=> "Cacciatore",
         // "sesso"=> "M" ,
         // "cittadinanza"=> "Ita",

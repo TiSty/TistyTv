@@ -22,12 +22,12 @@ class FilmStoreRequest extends FormRequest
     public function rules(): array
     { //metto i campi della tabella da creare
         return [
-        'titolo'=> 'required|string|max:80',
-        'durata'=> 'required|integer',
-        'regista'=> 'required|string|max:80',
-        'categoria' => 'required|string|max:80',
-        'anno'=> 'required|integer',
-        'trama'=> 'required|string',
+        'titolo'=> 'string|max:80',
+        'durata'=> 'integer',
+        'regista'=> 'string|max:80',
+        'categoria' => 'string|max:80',
+        'anno'=> 'integer',
+        'trama'=> 'string'
         ];
     }
 }

@@ -27,6 +27,7 @@ class RegistrazioneStoreRequest extends FormRequest
             'sesso'=>'required|integer',
             'dataNascita'=>'required|integer|max:45',
             'cittadinanza'=>'required|string|max:80',
+            'residenza' => 'required|string',
         ];
     }
 }

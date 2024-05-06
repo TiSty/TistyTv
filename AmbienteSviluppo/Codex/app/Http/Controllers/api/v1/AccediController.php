@@ -118,7 +118,7 @@ class AccediController extends Controller
                     // echo ("PUNTO 3<br>");
                      $secretJWT = $auth->secretJWT;   
                     //  echo($secretJWT);
-                    $payload = AppHelpers::validaToken($token, $secretJWT, $sessione);//qua è l'errore
+                    $payload = AppHelpers::validaToken($token, $secretJWT, $sessione);
                     if ($payload != null) {
                         //  echo ("PUNTO 4<br>") ;
                         $rit = $payload;

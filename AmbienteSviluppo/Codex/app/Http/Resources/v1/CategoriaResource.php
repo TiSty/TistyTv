@@ -28,7 +28,8 @@ class CategoriaResource extends JsonResource
         return [
             'idCategoria' => $this->idCategoria,
             'nome' => $this->nome,
-            'src' => $this->src
+            'src' => $this->src,
+            'films' => FilmResource::collection($this->whenLoaded('films')),
         ];
 
 

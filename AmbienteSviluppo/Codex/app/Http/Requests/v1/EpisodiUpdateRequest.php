@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\v1;
 
+use App\Models\Episodio;
 use Illuminate\Foundation\Http\FormRequest;
 
 class EpisodiUpdateRequest extends FormRequest
@@ -24,10 +25,13 @@ class EpisodiUpdateRequest extends FormRequest
         return [
             'titolo'=> 'string|max:80',
             'durata'=> 'integer',
-            'regista'=> 'string|max:80',
-            'categoria' => 'string|max:80',
+            'serieTv'=> 'string|max:80',
             'anno'=> 'integer',
             'trama'=> 'string',
+            'stagione' => 'string|max:80',
+            'episodio' =>'string|max:80',
+            
+            
         ];
             
     }

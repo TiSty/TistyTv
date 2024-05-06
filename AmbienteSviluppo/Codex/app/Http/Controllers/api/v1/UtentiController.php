@@ -102,6 +102,7 @@ class UtentiController extends Controller
     {
         //verifico i dati
         $data = $request->validated();
+      
 
         //creo l'utente
         $utente = new Utente();
@@ -118,7 +119,8 @@ class UtentiController extends Controller
         $utente->residenza = $hashRes;
         $utente->domicilio = $hashDom;
         $utente->ragioneSociale = $request->input('ragioneSociale');
-
+        // print_r($request->input("residenza"));
+     
         $utente->save();
 
         //estrapolo l'id appena creato 

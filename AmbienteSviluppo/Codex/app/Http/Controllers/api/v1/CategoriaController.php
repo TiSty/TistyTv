@@ -12,7 +12,9 @@ use App\Http\Resources\v1\CategoriaResource;
 use App\Http\Resources\v1\FilmCollection;
 use App\Models\Films;
 use Database\Seeders\categorie;
+use Database\Seeders\Film;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 
 class CategoriaController extends Controller
 {
@@ -23,19 +25,27 @@ class CategoriaController extends Controller
      */
     public function index()
     {
-        
-        if (Gate::allows('vedere')) { 
+
+        if (Gate::allows('vedere')) {
             //   echo 'vedere';
             if (Gate::allows('Amministratore')) {
                 $risorsa = Categoria::all();
             } else {
                 $risorsa = Categoria::all();
             }
+
+            // Aggiungi l'URL completo delle immagini a ciascuna categoria
+            foreach ($risorsa as $categoria) {
+                $categoria->src = asset('files/' . $categoria->src);  // Assicurati che $categoria->immagine contenga il nome del file dell'immagine
+            }
+
+
             return new CategoriaCollection($risorsa);
         } else {
             abort(403, 'errore gate');
         }
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -43,16 +53,38 @@ class CategoriaController extends Controller
      * @param Illuminated\Http\Request $request
      * @return Illuminated\Http\Response
      */
-    public function store(CategoriaStoreRequest $request)  //prendo i dati dalla Request
+
+    public function store(CategoriaStoreRequest $request)
     {
         if (Gate::allows("creare")) {
-            $dati = $request->validated();   //verificare i dati
-            $categoria = Categoria::create($dati);   // creo i dati (model = alla classe del model:metodo per crare i dati) e li metto dentro la variabile
-            return new CategoriaResource($categoria); // ritorna la risorsa creata
+            $dati = $request->validated(); // Verifica i dati
+            $categoria = Categoria::create($dati); // Crea la categoria e memorizza i dati
+
+            // Inizializza un array per il risultato
+            $rit = ['data' => false];
+            // Ritorna la risorsa Categoria nel caso il Gate consenta l'operazione
+
+            // Verifica se sono presenti file
+            if ($request->hasFile('imgCat')) {
+                foreach ($request->file('imgCat') as $file) {
+                    $name = time() . '.' . $file->getClientOriginalName();
+                    $file->move(public_path() . '/files/', $name);
+                    $categoria->src = $name;
+                    $categoria->save();
+                    // echo "nome" . $name;
+                }
+                $rit['data'] = true;
+            }
+            // Converte l'array in JSON e lo ritorna
+            // echo json_encode($rit);
+            return new CategoriaResource($categoria);
         } else {
+            // Se il gate non consente l'operazione, restituisci un errore 404
             abort(404);
         }
     }
+
+
 
     /**
      * Display the specified resource.
@@ -64,27 +96,41 @@ class CategoriaController extends Controller
     {
         if (Gate::allows("vedere")) {
             if (Gate::allows('Amministratore')) {
+                $categoria->load('films');
+                foreach ($categoria->films as $film) {
+                    $film->src = asset('files/' . $film->src);
+                }
                 $risorsa = new CategoriaResource($categoria);
             } else {
-                $risorsa = new CategoriaResource($categoria); 
+                $risorsa = new CategoriaResource($categoria);
             }
         } else {
             abort(403);
         }
         return $risorsa;
     }
-    public function showFilm($idCategoria){
-        if(Gate::allows("vedere")){
+
+
+    public function showFilm($idCategoria)
+    {
+        if (Gate::allows("vedere")) {
             $categoria = Categoria::find($idCategoria);
-            if(!$categoria){
+            if (!$categoria) {
                 abort(404, 'Categoria non trovata');
             } else {
                 $films = $categoria->films()->get();
 
+                // Modifica il percorso (src) di ciascun film
+                foreach ($films as $film) {
+                    $film->src = asset('files/' . $film->src);
+                }
+
+                // Restituisci i film modificati come collezione di risorse
                 return new FilmCollection($films);
             }
         }
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -100,11 +146,22 @@ class CategoriaController extends Controller
 
             //verificare i dati
             $dati = $request->validated();  //variabile = la request+funzione
+            $categoria->fill($dati);
+            $categoria->save();
+           
             //inserirli nell'oggetto al database preparare model
-            $categoria->fill($dati); //prendo il model -> inserisco i dati nella variabile
-            //salvarlo
-            $categoria->save(); //prendo il model e lo salvo
-            //ritornare la risorsa modificata
+
+            if ($request->hasFile('imgCat')) {
+                $file=$request->file('imgCat');
+                
+                $name = time() . '.' . $file->getClientOriginalName();
+              
+                $file->move(public_path() . '/files/', $name);
+                    $categoria->src = $name;
+                    $categoria->save();
+              
+            }
+
             return new CategoriaResource($categoria); //ritorna la risorsa modificata
         } else {
             abort(403);

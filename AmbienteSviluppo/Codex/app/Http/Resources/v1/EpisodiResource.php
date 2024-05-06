@@ -33,7 +33,6 @@ class EpisodiResource extends JsonResource
          'idEpisodio' => $this->idEpisodio,
          'titolo' => $this->titolo,
          'serieTv'=> $this->serieTv,
-         'episodio'=> $this->episodio,
          'stagione'=>$this->stagione,
          "durata" => $this->durata,
          "datiEp" => $this->datiEp,
